@@ -6,3 +6,7 @@ class ExchangeStatus(enum.Enum):
     ALIVE = "alive"
     PENDING = "pending"
 
+
+class ClientType(enum.Enum):
+    REQUESTER = "requester"
+    RESPONDER = "responder"
