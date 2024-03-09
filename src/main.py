@@ -16,6 +16,14 @@ import exchange, time
 """
 
 exchange_session = exchange.interface.ExchangeInterface(
-    pending_lifetime=5
+    pending_lifetime=1
 )
 
+while True:
+    time.sleep(1)
+
+    exchange_session.deny_exchange()
+
+    print(exchange.interface.killed_exchanges)
+
+    exchange.interface.clean_killed_exchanges()
