@@ -53,6 +53,7 @@ class ExchangeInterface():
 
     def deny_exchange(self):
         self.exchange_status = enum.ExchangeStatus.DEAD
+        
         kill_exchange(self.exchange_id.hex)
 
 
@@ -61,7 +62,6 @@ class ExchangeInterface():
             raise Exception("Exchange has timed out!")
 
         self.exchange_status = enum.ExchangeStatus.COMPLETED
-        self.garbage_threshold = time.time() + EXCHANGE_GARBAGE_LIFETIME
 
         kill_exchange(self.exchange_id.hex)
 
