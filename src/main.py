@@ -17,5 +17,10 @@ import exchange
 
 exchange_session = exchange.interface.ExchangeInterface()
 
-print(exchange_session.get_receiver_id())
-print(exchange_session.get_sender_id())
+print(exchange_session.get_requester_id())
+print(exchange_session.get_responder_id())
+
+exchange_session.deny_exchange()
+
+print(exchange.interface.killed_exchanges)
+print(exchange.interface.pending_exchanges)
