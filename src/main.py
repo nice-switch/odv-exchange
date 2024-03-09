@@ -1,4 +1,4 @@
-import exchange
+import exchange, time
 
 # TODO make it work!
 
@@ -15,12 +15,7 @@ import exchange
             
 """
 
-exchange_session = exchange.interface.ExchangeInterface()
+exchange_session = exchange.interface.ExchangeInterface(
+    pending_lifetime=5
+)
 
-print(exchange_session.get_requester_id())
-print(exchange_session.get_responder_id())
-
-exchange_session.deny_exchange()
-
-print(exchange.interface.killed_exchanges)
-print(exchange.interface.pending_exchanges)

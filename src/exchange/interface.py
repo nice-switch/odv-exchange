@@ -1,5 +1,4 @@
-KILLED_EXCHANGE_GARBAGE_TIME = 60 # A killed exchange is held on for 60 seconds before deletion.
-
+import time
 
 from uuid import uuid4, UUID
 from exchange import enum
@@ -18,7 +17,9 @@ def kill_exchange(exchange_id: str):
 
 
 class ExchangeInterface():
-    def __init__(self):
+    def __init__(self, pending_lifetime: int):
+
+        self.timed_out_threshold = time.time() + pending_lifetime
 
         self.exchange_status: enum.ExchangeStatus = enum.ExchangeStatus.PENDING
         
@@ -42,6 +43,14 @@ class ExchangeInterface():
         self.exchange_status = enum.ExchangeStatus.DEAD
         kill_exchange(self.exchange_id.hex)
 
+
     def accept_exchange(self):
+        if time.time() >= self.timed_out_threshold:
+            raise Exception("Exchange has timed out!")
+
         self.exchange_status = enum.ExchangeStatus.COMPLETED
+
         kill_exchange(self.exchange_id.hex)
+
+
+    
